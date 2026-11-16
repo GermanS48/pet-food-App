@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entregas a domicilio de PET FOOD en Moreno y zonas de Gran Buenos Aires.">
+    <meta name="theme-color" content="#8a2be2">
+    <title>PET FOOD | Entregas a domicilio</title>
+    <link rel="icon" href="imagenes/Pet-food.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="whatsapp.css">
+</head>
+<body>
+    <header>
+        <div class="empresa">
+            <img src="imagenes/logo.webp" class="logo-img" alt="Logo de PET FOOD" width="70" height="70">
+            <p class="empresa__nombre">PET FOOD</p>
+            <p class="empresa__slogan">Lo mejor para tu mascota</p>
+
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li>
+                        <a href="#" class="nav-link">Productos</a>
+                        <ul class="submenu">
+                            <li><a href="productos.html" class="nav-link">Perros</a></li>
+                            <li><a href="productos2.html" class="nav-link">Gatos</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="entregas.html" class="nav-link">Servicios</a>
+                        <ul class="submenu">
+                            <li><a href="entregas.html" class="nav-link">Entregas a domicilio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="formulario.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <h1 id="domicilio">Entregas a domicilio</h1>
+        <h2>Zona de cobertura</h2>
+        <div class="row align-items-center">
+            <div class="col-md-8 mapa-cobert">
+                <img src="imagenes/mapa-delivery.webp" alt="Mapa de cobertura de entregas" width="1600" height="891" loading="lazy" decoding="async">
+            </div>
+            <div class="col-md-4 delivery-img text-center">
+                <img src="imagenes/delivery.webp" alt="Repartidor de PET FOOD" width="900" height="981" loading="lazy" decoding="async">
+            </div>
+        </div>
+        <p>* Realizamos entregas a domicilio en Moreno y zonas de Gran Buenos Aires.</p>
+        <p>* Para más información, contactanos a través de nuestro WhatsApp.</p>
+    </main>
+
+    <footer>
+        <ul id="social-links">
+            <li><a class="facebook" href="#">Facebook</a></li>
+            <li><a class="twitter" href="#">Twitter</a></li>
+            <li><a class="google" href="#">Google+</a></li>
+            <li><a class="instagram" href="#">Instagram</a></li>
+        </ul>
+        <div class="footer-container">
+            <p>&copy; 2025 PET FOOD. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="formulario.html">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=541135723651&amp;text=Contactate%20para%20m%C3%A1s%20informaci%C3%B3n"
+       class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp">
+        <img src="imagenes/icons8-whatsapp.svg" alt="" class="whatsapp-icon" width="40" height="40">
+    </a>
+</body>
+</html>

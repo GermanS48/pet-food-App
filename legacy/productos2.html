@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo de alimentos y productos para gatos de PET FOOD.">
+    <meta name="theme-color" content="#8a2be2">
+    <title>PET FOOD | Productos para gatos</title>
+    <link rel="icon" href="imagenes/Pet-food.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carrito.css">
+    <link rel="stylesheet" href="whatsapp.css">
+</head>
+<body>
+    <header>
+        <div class="empresa">
+            <img src="imagenes/logo.webp" class="logo-img" alt="Logo de PET FOOD" width="70" height="70">
+            <p class="empresa__nombre">PET FOOD</p>
+            <p class="empresa__slogan">Lo mejor para tu mascota</p>
+
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li>
+                        <a href="#" class="nav-link">Productos</a>
+                        <ul class="submenu">
+                            <li><a href="productos.html" class="nav-link">Perros</a></li>
+                            <li><a href="productos2.html" class="nav-link">Gatos</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">Servicios</a>
+                        <ul class="submenu">
+                            <li><a href="entregas.html" class="nav-link">Entregas a domicilio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="compras.html" class="nav-link">Finalizar compra</a></li>
+                    <li>
+                        <a href="compras.html" class="carrito" aria-label="Ver carrito">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                            </svg>
+                            <span id="cart-badge" class="cart-badge" hidden>0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container-fluid py-3">
+            <h1 class="section-title">Productos para gatos</h1>
+            <div class="productosContainer2" id="productosContainer2" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <footer>
+        <ul id="social-links">
+            <li><a class="facebook" href="#">Facebook</a></li>
+            <li><a class="twitter" href="#">Twitter</a></li>
+            <li><a class="google" href="#">Google+</a></li>
+            <li><a class="instagram" href="#">Instagram</a></li>
+        </ul>
+        <div class="footer-container">
+            <p>&copy; 2025 PET FOOD. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="formulario.html">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=541135723651&amp;text=Contactate%20para%20m%C3%A1s%20informaci%C3%B3n"
+       class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp">
+        <img src="imagenes/icons8-whatsapp.svg" alt="" class="whatsapp-icon" width="40" height="40">
+    </a>
+
+    <script src="catalogo.js" defer></script>
+    <script src="carrito2.js" defer></script>
+</body>
+</html>

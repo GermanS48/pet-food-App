@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PET FOOD: alimento y productos de calidad para perros y gatos. Entregas a domicilio en Moreno y Gran Buenos Aires.">
+    <meta name="theme-color" content="#8a2be2">
+    <title>PET FOOD | Inicio</title>
+    <link rel="icon" href="imagenes/Pet-food.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="whatsapp.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="empresa">
+            <img src="imagenes/logo.webp" class="logo-img" alt="Logo de PET FOOD" width="70" height="70">
+            <p class="empresa__nombre">PET FOOD</p>
+            <p class="empresa__slogan">Lo mejor para tu mascota</p>
+
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link" data-toggle="modal" data-target="#sobreNosotrosModal">Sobre nosotros</a></li>
+                    <li>
+                        <a href="#" class="nav-link">Productos</a>
+                        <ul class="submenu">
+                            <li><a href="productos.html" class="nav-link">Perros</a></li>
+                            <li><a href="productos2.html" class="nav-link">Gatos</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">Servicios</a>
+                        <ul class="submenu">
+                            <li><a href="entregas.html" class="nav-link">Entregas a domicilio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="formulario.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="sr-only">PET FOOD, lo mejor para tu mascota</h1>
+        <section class="slideshow-container" id="slideshow" aria-label="Productos destacados">
+            <div class="video-perrito">
+                <div class="video-container">
+                    <video class="decor-video" width="300" height="300" muted loop playsinline preload="none"
+                           poster="imagenes/alimento-perro-cachorro.webp" data-autoplay aria-hidden="true" tabindex="-1">
+                        <source src="imagenes/happy-couple.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a href="productos.html" class="perros-link">
+                    <div class="img-perrito">
+                        <img src="imagenes/alimento-perro-cachorro.webp" alt="Alimento para cachorros" class="slideshow-image1" width="720" height="720" loading="eager" decoding="async">
+                        <h5 class="image-title">PERROS</h5>
+                    </div>
+                </a>
+            </div>
+
+            <a href="productos2.html" class="gatos-link">
+                <div class="img-gatito">
+                    <img src="imagenes/gatito-cachorro.webp" alt="Alimento para gatitos" class="slideshow-image2" width="720" height="720" loading="eager" decoding="async">
+                    <h5 class="image-title">GATOS</h5>
+                </div>
+            </a>
+
+            <div class="video-gatito">
+                <div class="video-container2">
+                    <video class="decor-video" width="300" height="300" muted loop playsinline preload="none"
+                           poster="imagenes/gatito-cachorro.webp" data-autoplay aria-hidden="true" tabindex="-1">
+                        <source src="imagenes/gato.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <ul id="social-links">
+            <li><a class="facebook" href="#">Facebook</a></li>
+            <li><a class="twitter" href="#">Twitter</a></li>
+            <li><a class="google" href="#">Google+</a></li>
+            <li><a class="instagram" href="#">Instagram</a></li>
+        </ul>
+        <div class="footer-container">
+            <p>&copy; 2025 PET FOOD. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="formulario.html">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=541135723651&amp;text=Contactate%20para%20m%C3%A1s%20informaci%C3%B3n"
+       class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp">
+        <img src="imagenes/icons8-whatsapp.svg" alt="" class="whatsapp-icon" width="40" height="40">
+    </a>
+
+    <!-- Modal Sobre Nosotros -->
+    <div class="modal fade" id="sobreNosotrosModal" tabindex="-1" role="dialog" aria-labelledby="sobreNosotrosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sobreNosotrosLabel">Sobre Nosotros</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="imagenes/sobre-nosotros.webp" alt="Sobre Nosotros" width="1200" height="853" loading="lazy" decoding="async">
+                    <p>
+                        En <strong>PET FOOD</strong> nos dedicamos a brindar lo mejor para tu mascota.<br>
+                        Productos de calidad, atención personalizada y compromiso con el bienestar animal.<br>
+                        ¡Gracias por confiar en nosotros!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.jQuery) return;
+            $('#sobreNosotrosModal').on('shown.bs.modal', function () {
+                setTimeout(function () {
+                    $('#sobreNosotrosModal').modal('hide');
+                }, 10000);
+            });
+        });
+    </script>
+</body>
+</html>
