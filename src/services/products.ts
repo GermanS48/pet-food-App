@@ -1,9 +1,9 @@
 import demoData from '../data/demo-products.json'
 import type { Category, Product } from '../types'
-import { mapProduct, type ProductRow } from '../lib/productMapper'
+import { mapDemoProduct, mapProducto, type DemoProductRow, type ProductoRow } from '../lib/productMapper'
 import { isSupabaseConfigured, supabase } from '../lib/supabase'
 
-const demoRows = demoData as unknown as ProductRow[]
+const demoRows = demoData as unknown as DemoProductRow[]
 
 export interface ProductQuery {
   category?: Category
@@ -12,10 +12,10 @@ export interface ProductQuery {
 }
 
 const PRODUCT_COLUMNS =
-  'id,name,slug,category,price,image_url,external_url,seller,rating,reviews_count,featured'
+  'id,nombre,slug,categoria,precio,imagen_url,enlace,vendedor,calificacion,total_calificaciones,destacado'
 
 function getDemoProducts(query: ProductQuery): Product[] {
-  let products = demoRows.map(mapProduct)
+  let products = demoRows.map(mapDemoProduct)
 
   if (query.category) {
     products = products.filter((product) => product.category === query.category)
@@ -36,14 +36,16 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
   if (!supabase) return getDemoProducts(query)
 
   let request = supabase
-    .from('products')
+    .from('productos')
     .select(PRODUCT_COLUMNS)
-    .eq('active', true)
+    .eq('activo', true)
 
-  if (query.category) request = request.eq('category', query.category)
-  if (query.featuredOnly) request = request.eq('featured', true)
+  if (query.category) request = request.eq('categoria', query.category)
+  if (query.featuredOnly) request = request.eq('destacado', true)
 
-  request = request.order('featured', { ascending: false }).order('name', { ascending: true })
+  request = request
+    .order('destacado', { ascending: false })
+    .order('nombre', { ascending: true })
 
   if (typeof query.limit === 'number') request = request.limit(query.limit)
 
@@ -52,23 +54,23 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     throw new Error(`No pudimos cargar los productos: ${error.message}`)
   }
 
-  return (data as ProductRow[] | null)?.map(mapProduct) ?? []
+  return (data as ProductoRow[] | null)?.map(mapProducto) ?? []
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   if (!supabase) {
-    return demoRows.map(mapProduct).find((product) => product.slug === slug) ?? null
+    return demoRows.map(mapDemoProduct).find((product) => product.slug === slug) ?? null
   }
 
   const { data, error } = await supabase
-    .from('products')
+    .from('productos')
     .select(PRODUCT_COLUMNS)
     .eq('slug', slug)
-    .eq('active', true)
+    .eq('activo', true)
     .maybeSingle()
 
   if (error) throw new Error(error.message)
-  return data ? mapProduct(data as ProductRow) : null
+  return data ? mapProducto(data as ProductoRow) : null
 }
 
 export { isSupabaseConfigured }

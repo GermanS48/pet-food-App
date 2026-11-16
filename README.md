@@ -23,7 +23,7 @@ La aplicación incluye catálogo, búsqueda, carrito persistente, checkout, cont
 | Contacto | ✅ Formulario y aviso de envío |
 | Migración Supabase | ✅ `supabase/migrations/20261116000000_init.sql` |
 | Seed Supabase | ✅ `supabase/seed.sql` |
-| Conexión real a Supabase | ⚠️ Requiere URL + anon key del proyecto |
+| Conexión real a Supabase | ✅ Proyecto `lotlwhwbnvrvxflyhgkq`; falta ejecutar migración + seed |
 | Deploy | ⚠️ Configurado para Netlify / Vercel / GitHub Pages; requiere publicar |
 
 Sin variables de entorno, la app usa el catálogo local `src/data/demo-products.json` y guarda pedidos/mensajes en `localStorage`. En modo demo el pedido **no llega a la base**; la pantalla final permite enviarlo por WhatsApp y avisa que se guardó en el dispositivo.
@@ -100,39 +100,66 @@ VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
 VITE_SUPABASE_ANON_KEY=tu-anon-key
 ```
 
-Reiniciá `npm run dev`. El catálogo se leerá desde la tabla `products` y los pedidos/mensajes se guardarán en Supabase.
+Reiniciá `npm run dev`. El catálogo se leerá desde la tabla `productos` y los pedidos/mensajes se guardarán en Supabase.
 
 > Las variables `VITE_*` se incorporan al build. No pongas la `service_role` key en el frontend: sólo se necesita la `anon key`.
 
 ## Modelo de datos
 
+El catálogo toma los JSON de origen y los guarda de dos formas complementarias:
+
+- **Columnas legibles** para consultar, filtrar y ordenar desde la app.
+- **`datos_originales jsonb`** con el objeto exacto tal como viene en los JSON de productos.
+
 ```text
-products           catálogo público
-orders             cabecera del pedido (cliente, entrega, total, estado)
-order_items        detalle del pedido + subtotal calculado
-contact_messages   mensajes del formulario de contacto
+productos       catálogo público (columnas legibles + datos_originales jsonb)
+pedidos         cabecera del pedido (cliente, entrega, total, estado)
+pedido_items    detalle del pedido + subtotal calculado
+mensajes        mensajes del formulario de contacto
 ```
+
+### Columnas de `productos`
+
+| Columna | Origen en el JSON |
+| --- | --- |
+| `nombre` | `poly-component__title` |
+| `precio` | `andes-money-amount__fraction` normalizado a número |
+| `imagen_url` | `poly-component__picture src` |
+| `enlace` | `poly-component__title href` |
+| `vendedor` | `poly-component__seller` (sin el prefijo `por`) |
+| `calificacion` | `poly-reviews__rating` |
+| `total_calificaciones` | `poly-reviews__total` |
+| `cuotas` | `poly-price__installments` |
+| `envio` | `poly-shipping--next_day` |
+| `envio_desde` | `poly-component__shipped-from` |
+| `descuento` | `andes-money-amount__discount` |
+| `etiqueta` | `poly-component__highlight` |
+| `promocion` / `promocion_url` | `poly-component__ads-promotions` (+ `href`) |
+| `destacado` | presencia en `galeria.json` |
+| `datos_originales` | objeto JSON completo, sin modificar |
+
+Además hay columnas de control: `id`, `slug`, `categoria` (`perros` / `gatos`), `moneda`, `activo`, `created_at` y `updated_at`.
 
 ### Seguridad
 
 - **RLS activado** en las cuatro tablas.
-- `products`: lectura pública sólo de productos `active = true`.
-- `contact_messages`: inserción pública validada; no hay lectura pública.
-- `orders` y `order_items`: sin políticas públicas, no se pueden leer ni escribir directamente desde el cliente.
-- Los pedidos se crean mediante la función `create_order(payload jsonb)` (`security definer`):
+- `productos`: lectura pública sólo de productos `activo = true`.
+- `mensajes`: inserción pública validada (nombre, email y mensaje); no hay lectura pública.
+- `pedidos` y `pedido_items`: sin políticas públicas, no se pueden leer ni escribir directamente desde el cliente.
+- Los pedidos se crean mediante la función `crear_pedido(payload jsonb)` (`security definer`):
   - valida nombre, teléfono, email, dirección y cantidades;
   - recalcula el total en el servidor;
-  - exige un `product_id` activo y toma **nombre y precio desde `products`**, ignorando los valores enviados por el cliente;
+  - exige un `producto_id` activo y toma **nombre y precio desde `productos`**, ignorando los valores enviados por el cliente;
   - limita el pedido a 50 líneas y cantidades de 1 a 99.
 
 Para revisar pedidos desde el panel de Supabase:
 
 ```sql
-select o.*, json_agg(oi.*) as items
-from public.orders o
-join public.order_items oi on oi.order_id = o.id
-group by o.id
-order by o.created_at desc;
+select p.*, json_agg(i.*) as items
+from public.pedidos p
+join public.pedido_items i on i.pedido_id = p.id
+group by p.id
+order by p.created_at desc;
 ```
 
 ## Datos del catálogo
@@ -149,7 +176,8 @@ Los JSON originales están en `supabase/data/`:
 - elimina duplicados por categoría + nombre + precio;
 - genera slugs únicos;
 - marca como destacados los productos presentes en `galeria.json`;
-- escribe `src/data/demo-products.json` y `supabase/seed.sql`.
+- escribe `src/data/demo-products.json` (respaldo con claves en inglés) y `supabase/seed.sql`;
+- en el seed, cada fila lleva el objeto original completo en `datos_originales`.
 
 Si actualizás los JSON, volvé a ejecutar:
 
@@ -204,7 +232,7 @@ src/
   types/           Tipos de dominio
 supabase/
   data/            JSON originales
-  migrations/      Esquema, RLS y RPC create_order
+  migrations/      Esquema, RLS y RPC crear_pedido
   seed.sql         Catálogo inicial
 scripts/           Generador de datos/seed
 legacy/            Sitio estático original conservado como referencia
@@ -214,6 +242,6 @@ public/imagenes/   Assets optimizados
 ## Notas
 
 - `legacy/` conserva el sitio anterior (HTML/CSS/JS) para consultar el contenido y el diseño original.
-- Las imágenes del catálogo apuntan a URLs externas de MercadoLibre; si una URL deja de estar disponible, reemplazala en `products.image_url` o en el JSON de origen y regenerá los datos.
+- Las imágenes del catálogo apuntan a URLs externas de MercadoLibre; si una URL deja de estar disponible, reemplazala en `productos.imagen_url` o en el JSON de origen y regenerá los datos.
 - El número de WhatsApp y el email de contacto están centralizados en `src/lib/constants.ts`.
 - Para cambiar textos de entregas, cobertura o preguntas frecuentes, editá `src/pages/DeliveryPage.tsx`.

@@ -2,10 +2,10 @@ import type { CreatedOrder, OrderInput } from '../types'
 import { supabase } from '../lib/supabase'
 
 const DEMO_ORDERS_KEY = 'petfood.demo-orders.v1'
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+const NUMERIC_ID_PATTERN = /^\d+$/
 
 interface CreateOrderResponse {
-  order_id: string
+  pedido_id: string
   total: number | string
 }
 
@@ -31,30 +31,33 @@ export async function createOrder(input: OrderInput): Promise<CreatedOrder> {
   const total = input.items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
 
   if (supabase) {
+    const items = input.items.map((item) => {
+      const productId = String(item.productId).trim()
+      if (!NUMERIC_ID_PATTERN.test(productId)) {
+        throw new Error('Uno de los productos del carrito no está disponible en la tienda.')
+      }
+      return { producto_id: productId, cantidad: item.quantity }
+    })
+
     const payload = {
-      customer_name: input.customerName.trim(),
-      phone: input.phone.trim(),
+      cliente_nombre: input.customerName.trim(),
+      telefono: input.phone.trim(),
       email: input.email.trim() || null,
-      delivery_method: input.deliveryMethod,
-      address: input.deliveryMethod === 'delivery' ? input.address.trim() : null,
-      city: input.deliveryMethod === 'delivery' ? input.city.trim() : null,
-      notes: input.notes.trim() || null,
-      items: input.items.map((item) => ({
-        product_id: UUID_PATTERN.test(item.productId) ? item.productId : null,
-        product_name: item.name,
-        unit_price: item.unitPrice,
-        quantity: item.quantity,
-      })),
+      metodo_entrega: input.deliveryMethod,
+      direccion: input.deliveryMethod === 'delivery' ? input.address.trim() : null,
+      localidad: input.deliveryMethod === 'delivery' ? input.city.trim() : null,
+      notas: input.notes.trim() || null,
+      items,
     }
 
-    const { data, error } = await supabase.rpc('create_order', { payload })
+    const { data, error } = await supabase.rpc('crear_pedido', { payload })
     if (error) {
       throw new Error(`No pudimos registrar el pedido: ${error.message}`)
     }
 
     const result = data as CreateOrderResponse
     return {
-      id: result.order_id,
+      id: result.pedido_id,
       total: Number(result.total),
       demo: false,
       createdAt: new Date().toISOString(),

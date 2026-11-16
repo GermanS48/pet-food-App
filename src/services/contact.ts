@@ -5,10 +5,10 @@ const DEMO_MESSAGES_KEY = 'petfood.demo-messages.v1'
 
 export async function sendContactMessage(input: ContactInput): Promise<{ demo: boolean }> {
   if (supabase) {
-    const { error } = await supabase.from('contact_messages').insert({
-      name: input.name.trim(),
+    const { error } = await supabase.from('mensajes').insert({
+      nombre: input.name.trim(),
       email: input.email.trim(),
-      message: input.message.trim(),
+      mensaje: input.message.trim(),
     })
 
     if (error) {
