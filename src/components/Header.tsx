@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { asset } from '../lib/assets'
 import { WHATSAPP_INFO_URL } from '../lib/constants'
@@ -15,6 +16,7 @@ function navLinkClass({ isActive }: { isActive: boolean }): string {
 
 export function Header({ onOpenAbout }: HeaderProps) {
   const { count } = useCart()
+  const { user, isAllowed } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
@@ -106,6 +108,14 @@ export function Header({ onOpenAbout }: HeaderProps) {
             <li>
               <NavLink to="/contacto" className={navLinkClass}>
                 Contacto
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={user && isAllowed ? '/admin/productos' : '/admin/login'}
+                className={navLinkClass}
+              >
+                Admin
               </NavLink>
             </li>
             <li className="nav-cart-item">

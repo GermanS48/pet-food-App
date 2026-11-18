@@ -3108,3 +3108,227 @@ a.info-card:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Utilidades y administración ---------- */
+
+.muted {
+  color: var(--muted);
+}
+
+.narrow {
+  max-width: 760px;
+}
+
+.form-error {
+  color: var(--danger);
+  font-weight: 700;
+  margin: 0;
+}
+
+.form-success {
+  color: var(--success);
+  font-weight: 700;
+  margin: 0;
+}
+
+.admin-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.admin-header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 22px;
+  margin-bottom: 24px;
+}
+
+.admin-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.admin-panel-head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.admin-form {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-form--grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.form-field > span {
+  font-size: 0.92rem;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #d8cceb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.form-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.form-field--checks {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 7px 14px;
+  font-size: 0.9rem;
+}
+
+.btn--danger {
+  color: #fff;
+  background: var(--danger);
+}
+
+.btn--danger:hover {
+  background: #a62f24;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.admin-table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.admin-product-name {
+  font-weight: 800;
+}
+
+.admin-product-slug {
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+
+.badge--ok {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.badge--muted {
+  color: #555;
+  background: #ececec;
+}
+
+.badge--accent {
+  color: #5b3b00;
+  background: #ffe8a3;
+}
+
+.admin-search {
+  min-width: min(100%, 340px);
+}
+
+@media (max-width: 760px) {
+  .admin-form--grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header {
+    flex-direction: column;
+  }
+}
